@@ -18,7 +18,6 @@ class _AuthScreenState extends State<AuthScreen> {
     String username,
     String password,
     bool isLogin,
-    File image,
     BuildContext ctx,
   ) async {
     final _auth = FirebaseAuth.instance;
@@ -28,6 +27,7 @@ class _AuthScreenState extends State<AuthScreen> {
     });
     try {
       if (isLogin) {
+        print(username);
         authResult = await _auth.signInWithEmailAndPassword(
           email: email,
           password: password,
@@ -37,14 +37,6 @@ class _AuthScreenState extends State<AuthScreen> {
           email: email,
           password: password,
         );
-        final ref = FirebaseStorage.instance
-            .ref()
-            .child('user-profiles')
-            .child(authResult.user.uid + '.jpg');
-
-        await ref.putFile(image).onComplete;
-
-        final url = await ref.getDownloadURL();
 
         await Firestore.instance
             .collection('users')
@@ -53,7 +45,6 @@ class _AuthScreenState extends State<AuthScreen> {
           {
             'email': email,
             'username': username,
-            'image_url': url,
             'user_id': authResult.user.uid,
           },
         );
