@@ -1,0 +1,164 @@
+import 'image_picker.dart';
+import 'package:flutter/material.dart';
+import 'dart:io';
+
+class AuthForm extends StatefulWidget {
+  final void Function(
+    String email,
+    String username,
+    String password,
+    bool isLogin,
+    File image,
+    BuildContext ctx,
+  ) submitFn;
+  final bool isLoading;
+  AuthForm(this.submitFn, this.isLoading);
+  @override
+  _AuthFormState createState() => _AuthFormState();
+}
+
+class _AuthFormState extends State<AuthForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  var _isLogin = true;
+  var _username = '';
+  var _password = '';
+  var _email = '';
+  File _image;
+
+  void _pickImage(File image) {
+    _image = image;
+  }
+
+  void _trySubmit() {
+    final isValid = _formKey.currentState.validate();
+    FocusScope.of(context).unfocus();
+
+    if (_image == null && !_isLogin) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Please add a image',
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      return;
+    }
+
+    if (isValid) {
+      _formKey.currentState.save();
+      widget.submitFn(
+        _email.trim(),
+        _username.trim(),
+        _password.trim(),
+        _isLogin,
+        _image,
+        context,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Card(
+        margin: EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  if (!_isLogin) UserImagePicker(_pickImage),
+                  TextFormField(
+                    key: ValueKey('email'),
+                    autocorrect: false,
+                    textCapitalization: TextCapitalization.none,
+                    enableSuggestions: false,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: 'Email adderess',
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty || !value.contains('@')) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      _email = newValue;
+                    },
+                  ),
+                  if (!_isLogin)
+                    TextFormField(
+                      key: ValueKey('username'),
+                      autocorrect: true,
+                      textCapitalization: TextCapitalization.sentences,
+                      enableSuggestions: false,
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty || value.length < 4) {
+                          return 'Please enter a valid username';
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) {
+                        _username = newValue;
+                      },
+                    ),
+                  TextFormField(
+                    key: ValueKey('password'),
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value.isEmpty || value.length < 8) {
+                        return 'Please enter a valid password';
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      _password = newValue;
+                    },
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  if (widget.isLoading) CircularProgressIndicator(),
+                  if (!widget.isLoading)
+                    RaisedButton(
+                      onPressed: _trySubmit,
+                      child: Text(
+                        _isLogin ? 'Login' : 'Sign Up',
+                      ),
+                    ),
+                  if (!widget.isLoading)
+                    FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          _isLogin = !_isLogin;
+                        });
+                      },
+                      child: Text(
+                        _isLogin
+                            ? 'Create new account'
+                            : 'I already have an account',
+                      ),
+                      textColor: Theme.of(context).primaryColor,
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
