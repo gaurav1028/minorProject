@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-class AuthForm extends StatefulWidget {
+class AuthDoctorForm extends StatefulWidget {
   final void Function(
     String email,
     String username,
     String password,
     String address,
+    String qualification,
     bool isLogin,
     BuildContext ctx,
   ) submitFn;
   final bool isLoading;
-  AuthForm(this.submitFn, this.isLoading);
+  AuthDoctorForm(this.submitFn, this.isLoading);
   @override
-  _AuthFormState createState() => _AuthFormState();
+  _AuthDoctorFormState createState() => _AuthDoctorFormState();
 }
 
-class _AuthFormState extends State<AuthForm> {
+class _AuthDoctorFormState extends State<AuthDoctorForm> {
   final _formKey = GlobalKey<FormState>();
 
   var _isLogin = true;
@@ -24,7 +25,7 @@ class _AuthFormState extends State<AuthForm> {
   var _password = '';
   var _email = '';
   var _address = '';
-
+  var _qualification = '';
   void _trySubmit() {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
@@ -36,6 +37,7 @@ class _AuthFormState extends State<AuthForm> {
         _username.trim(),
         _password.trim(),
         _address.trim(),
+        _qualification.trim(),
         _isLogin,
         context,
       );
@@ -111,6 +113,25 @@ class _AuthFormState extends State<AuthForm> {
                         _password = newValue;
                       },
                     ),
+                    if (!_isLogin)
+                      TextFormField(
+                        key: ValueKey('qualification'),
+                        autocorrect: true,
+                        textCapitalization: TextCapitalization.sentences,
+                        enableSuggestions: false,
+                        decoration: InputDecoration(
+                          labelText: 'Qualification',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty || value.length < 4) {
+                            return 'Please enter a valid qualification';
+                          }
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _qualification = newValue;
+                        },
+                      ),
                     if (!_isLogin)
                       TextFormField(
                         key: ValueKey('address'),
