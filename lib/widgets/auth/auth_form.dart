@@ -18,7 +18,6 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
-
   var _isLogin = true;
   var _username = '';
   var _password = '';
@@ -27,9 +26,14 @@ class _AuthFormState extends State<AuthForm> {
 
   void _trySubmit() {
     final isValid = _formKey.currentState.validate();
+    print(isValid);
     FocusScope.of(context).unfocus();
 
     if (isValid) {
+      print(_email.trim() +
+          _username.trim() +
+          _password.trim() +
+          _address.trim());
       _formKey.currentState.save();
       widget.submitFn(
         _email.trim(),

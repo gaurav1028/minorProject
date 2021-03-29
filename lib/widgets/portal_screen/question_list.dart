@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import './question.dart';
+import 'package:provider/provider.dart';
+import '../../provider/user.dart';
 
 class QuestionList extends StatelessWidget {
   @override
@@ -13,7 +15,7 @@ class QuestionList extends StatelessWidget {
           );
         } else {
           final docs = snapshot.data.documents;
-
+          print(Provider.of<UserType>(context, listen: false).type);
           if (docs.length < 1) {
             return Center(
               child: Text('No posts to show'),

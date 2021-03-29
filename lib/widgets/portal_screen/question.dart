@@ -25,17 +25,6 @@ class Question extends StatelessWidget {
                 docs[index]['question'],
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              RaisedButton(
-                onPressed: () {},
-                child: Text('Accept'),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              RaisedButton(
-                onPressed: () {},
-                child: Text('Delete'),
-              ),
             ],
           ),
         ),

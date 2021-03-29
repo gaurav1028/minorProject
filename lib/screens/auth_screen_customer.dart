@@ -9,13 +9,13 @@ import '../widgets/auth/auth_form_doctor.dart';
 import 'splash_screen.dart';
 import 'tab_screen.dart';
 
-class AuthScreen extends StatefulWidget {
-  static const routeName = "/auth-form";
+class AuthCustomerScreen extends StatefulWidget {
+  static const routeName = "/auth-form-customer";
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class _AuthScreenState extends State<AuthCustomerScreen> {
   var isLoading = false;
 
   void _authFormSubmit(
@@ -80,6 +80,7 @@ class _AuthScreenState extends State<AuthScreen> {
       setState(() {
         isLoading = false;
       });
+      return;
     } catch (err) {
       print(err);
       setState(
@@ -87,85 +88,19 @@ class _AuthScreenState extends State<AuthScreen> {
           isLoading = false;
         },
       );
+      return;
     }
-  }
-
-  void _authDoctorFormSubmit(
-    String email,
-    String username,
-    String password,
-    String address,
-    String qualification,
-    bool isLogin,
-    BuildContext ctx,
-  ) async {
-    final _auth = FirebaseAuth.instance;
-    AuthResult authResult;
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      if (isLogin) {
-        print(username);
-        authResult = await _auth.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-      } else {
-        authResult = await _auth.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-
-        await Firestore.instance
-            .collection('doctors')
-            .document(authResult.user.uid)
-            .setData(
-          {
-            'email': email,
-            'username': username,
-            'user_id': authResult.user.uid,
-            'address': address,
-            'qualification': qualification,
-          },
-        );
-
-        await Firestore.instance
-            .collection('users')
-            .document(authResult.user.uid)
-            .setData(
-          {
-            'type': 'vet',
-          },
-        );
-      }
-    } on PlatformException catch (err) {
-      var message = 'An error occured,please check credentials';
-
-      if (err.message != null) {
-        message = err.message;
-      }
-      Scaffold.of(ctx).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          backgroundColor: Theme.of(ctx).errorColor,
-        ),
-      );
-      setState(() {
-        isLoading = false;
-      });
-    } catch (err) {
-      print(err);
-      setState(
-        () {
-          isLoading = false;
-        },
-      );
-    }
+    Navigator.of(ctx).pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AuthForm(_authFormSubmit, isLoading);
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: AuthForm(
+        _authFormSubmit,
+        isLoading,
+      ),
+    );
   }
 }

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:minorProject/provider/user.dart';
 import 'package:minorProject/screens/selection_screen.dart';
-import 'package:minorProject/widgets/main_screen/button.dart';
 import 'package:provider/provider.dart';
 import 'screens/splash_screen.dart';
-import 'screens/auth_screen.dart';
 import 'screens/tab_screen.dart';
+import 'screens/auth_screen_customer.dart';
+import 'screens/auth_screen_doctor.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primaryColor: Colors.black,
-          backgroundColor: Colors.white,
-          accentColor: Colors.white,
+          primaryColor: Colors.blue,
+          backgroundColor: Colors.purple,
+          accentColor: Colors.red,
           buttonTheme: ButtonTheme.of(context).copyWith(
             buttonColor: Colors.black,
             textTheme: ButtonTextTheme.primary,
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             color: Colors.black,
           ),
           appBarTheme: AppBarTheme(
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         home: StreamBuilder(
@@ -54,7 +54,8 @@ class MyApp extends StatelessWidget {
           },
         ),
         routes: {
-          AuthScreen.routeName: (context) => AuthScreen(),
+          AuthDoctorScreen.routeName: (context) => AuthDoctorScreen(),
+          AuthCustomerScreen.routeName: (context) => AuthCustomerScreen(),
         },
       ),
     );

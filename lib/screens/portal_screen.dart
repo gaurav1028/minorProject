@@ -13,6 +13,7 @@ class PortalScreen extends StatelessWidget {
             onPressed: addQuestion,
           )
         ],
+        title: Text('Portal'),
       ),
       body: QuestionList(),
     );

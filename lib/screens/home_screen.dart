@@ -6,9 +6,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<void> getData() async {
-      final userDoc =
-          await Firestore.instance.collection('tp').document('28').get();
-      print(userDoc['data']);
+      final user = await FirebaseAuth.instance.currentUser();
+      print(user);
+      final userDoc = await Firestore.instance
+          .collection('users')
+          .document('${user.uid}')
+          .get();
+      print(userDoc['type']);
     }
 
     return Scaffold(
@@ -17,6 +21,7 @@ class HomeScreen extends StatelessWidget {
           child: Text('Press'),
           onPressed: () {
             FirebaseAuth.instance.signOut();
+            //getData();
           },
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/main_screen/button.dart';
+import './auth_screen_doctor.dart';
+import './auth_screen_customer.dart';
 
 class SelectionScreen extends StatelessWidget {
   @override
@@ -10,11 +12,21 @@ class SelectionScreen extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              MainButton(
-                'Vet',
+              RaisedButton(
+                child: Text("Vet"),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    AuthDoctorScreen.routeName,
+                  );
+                },
               ),
-              MainButton(
-                'Customer',
+              RaisedButton(
+                child: Text("Customer"),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    AuthCustomerScreen.routeName,
+                  );
+                },
               ),
             ],
           ),
