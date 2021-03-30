@@ -34,6 +34,15 @@ dependencies:
   cloud_firestore: ^0.13.7
   image_picker: ^0.6.7+4
   provider: ^4.3.1
+  file_picker: ^1.4.0+1
+  emoji_picker: ^0.0.2
+  video_player: ^0.10.2+1
+  flutter_downloader: ^1.2.2
+  downloads_path_provider: ^0.1.0
+  flushbar: ^1.9.0
+
+  assets:
+    - placeholder.png
   
 dev_dependencies:
   flutter_test:

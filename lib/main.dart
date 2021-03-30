@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:minorProject/provider/user.dart';
+import 'package:minorProject/screens/chat_room_screen.dart';
 import 'package:minorProject/screens/selection_screen.dart';
 import 'package:provider/provider.dart';
 import 'screens/splash_screen.dart';
@@ -13,6 +15,20 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  Future<String> getData(ctx) async {
+    final user = await FirebaseAuth.instance.currentUser();
+    print(user);
+    final userDoc = await Firestore.instance
+        .collection('users')
+        .document('${user.uid}')
+        .get();
+
+    String type = userDoc['type'];
+    Provider.of<UserType>(ctx, listen: false).setType(type);
+    Provider.of<UserType>(ctx, listen: false).setUid(user.uid);
+    return type;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -24,14 +40,14 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.purple,
           accentColor: Colors.red,
           buttonTheme: ButtonTheme.of(context).copyWith(
-            buttonColor: Colors.black,
+            buttonColor: Colors.red,
             textTheme: ButtonTextTheme.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
           primaryIconTheme: IconThemeData(
-            color: Colors.black,
+            color: Colors.green,
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           iconTheme: IconThemeData(
@@ -48,7 +64,16 @@ class MyApp extends StatelessWidget {
               return SplashScreen();
             }
             if (snapshot.hasData) {
-              return TabScreen(snapshot.data.uid);
+              return FutureBuilder(
+                builder: (ctx, ss) {
+                  if (ss.connectionState == ConnectionState.waiting) {
+                    return SplashScreen();
+                  } else {
+                    return TabScreen(ss.data);
+                  }
+                },
+                future: getData(context),
+              );
             }
             return SelectionScreen();
           },
@@ -56,6 +81,7 @@ class MyApp extends StatelessWidget {
         routes: {
           AuthDoctorScreen.routeName: (context) => AuthDoctorScreen(),
           AuthCustomerScreen.routeName: (context) => AuthCustomerScreen(),
+          ChatRoomScreen.routeName: (context) => ChatRoomScreen(),
         },
       ),
     );

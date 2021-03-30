@@ -1,4 +1,4 @@
-import 'package:minorProject/screens/chat_screen.dart';
+import 'package:minorProject/screens/chat_room_screen.dart';
 import 'package:flutter/material.dart';
 
 class UserListItem extends StatelessWidget {
@@ -16,7 +16,12 @@ class UserListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(username),
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(ChatRoomScreen.routeName, arguments: {
+          'userid': userid,
+          'username': username,
+        });
+      },
     );
   }
 }

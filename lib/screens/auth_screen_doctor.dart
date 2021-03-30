@@ -63,7 +63,7 @@ class _AuthScreenState extends State<AuthDoctorScreen> {
             .document(authResult.user.uid)
             .setData(
           {
-            'type': 'vet',
+            'type': 'doctors',
           },
         );
       }

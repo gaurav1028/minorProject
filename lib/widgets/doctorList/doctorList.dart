@@ -69,7 +69,9 @@ class DoctorList extends StatelessWidget {
         future: getUserData(),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           } else
             return StreamBuilder(
               stream: Firestore.instance.collection('doctors').snapshots(),
