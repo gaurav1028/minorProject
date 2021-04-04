@@ -96,7 +96,7 @@ class ImageMessage extends StatelessWidget {
           ],
         ),
       );
-    } else if (type == 3) {
+    } else {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Column(

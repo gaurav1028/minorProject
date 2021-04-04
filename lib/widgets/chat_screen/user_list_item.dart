@@ -14,14 +14,46 @@ class UserListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(username),
-      onTap: () {
-        Navigator.of(context).pushNamed(ChatRoomScreen.routeName, arguments: {
-          'userid': userid,
-          'username': username,
-        });
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ListTile(
+        contentPadding: EdgeInsets.all(0),
+        leading: Stack(
+          children: <Widget>[
+            CircleAvatar(
+              backgroundImage: AssetImage(
+                'assets/placeholder.png',
+              ),
+              radius: 25,
+            ),
+          ],
+        ),
+        title: Text(
+          "$username",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            ChatRoomScreen.routeName,
+            arguments: {
+              'userid': userid,
+              'username': username,
+            },
+          );
+        },
+      ),
     );
+
+    // ListTile(
+    //   title: Text(username),
+    //   onTap: () {
+    //     Navigator.of(context).pushNamed(ChatRoomScreen.routeName, arguments: {
+    //       'userid': userid,
+    //       'username': username,
+    //     });
+    //   },
+    // );
   }
 }

@@ -30,7 +30,19 @@ class UserList extends StatelessWidget {
             ? Center(
                 child: Text('No users'),
               )
-            : ListView.builder(
+            : ListView.separated(
+                padding: EdgeInsets.all(10),
+                separatorBuilder: (BuildContext context, int index) {
+                  return Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      height: 0.5,
+                      width: MediaQuery.of(context).size.width / 1.3,
+                      child: Divider(),
+                    ),
+                  );
+                },
+                itemCount: chatDocs.length,
                 itemBuilder: (context, index) => chatDocs[index]['uid'] == uid
                     ? Container()
                     : UserListItem(
@@ -40,8 +52,20 @@ class UserList extends StatelessWidget {
                           chatDocs[index].documentID,
                         ),
                       ),
-                itemCount: chatDocs.length,
               );
+
+        //  ListView.builder(
+        //     itemBuilder: (context, index) => chatDocs[index]['uid'] == uid
+        //         ? Container()
+        //         : UserListItem(
+        //             chatDocs[index]['username'],
+        //             chatDocs[index]['uid'],
+        //             key: ValueKey(
+        //               chatDocs[index].documentID,
+        //             ),
+        //           ),
+        //     itemCount: chatDocs.length,
+        //   );
       },
     );
   }

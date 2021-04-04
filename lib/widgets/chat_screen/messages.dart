@@ -31,22 +31,53 @@ class Messages extends StatelessWidget {
             }
             final chatDocs = snapshot.data.documents;
             return ListView.builder(
-              reverse: true,
-              itemCount: chatDocs.length,
-              itemBuilder: (context, index) => chatDocs[index]['type'] == 0
-                  ? MessageBubble(
-                      chatDocs[index]['text'],
-                      chatDocs[index]['sender'] == futuresnapshot.data.uid,
-                      key: ValueKey(
-                        chatDocs[index].documentID,
-                      ),
-                    )
-                  : ImageMessage(
-                      chatDocs[index]['sender'] == futuresnapshot.data.uid,
-                      chatDocs[index]['type'],
-                      chatDocs[index],
-                    ),
-            );
+                reverse: true,
+                itemCount: chatDocs.length,
+                itemBuilder: (context, index) => chatDocs[index]['type'] == 0
+                    ? MessageBubble(
+                        chatDocs[index]['text'],
+                        chatDocs[index]['sender'] == futuresnapshot.data.uid,
+                        key: ValueKey(
+                          chatDocs[index].documentID,
+                        ),
+                      )
+                    : Row(
+                        children: <Widget>[
+                          Container(
+                            child: ImageMessage(
+                              chatDocs[index]['sender'] ==
+                                  futuresnapshot.data.uid,
+                              chatDocs[index]['type'],
+                              chatDocs[index],
+                            ),
+                            padding: EdgeInsets.all(1.0),
+                            constraints: BoxConstraints(maxWidth: 200.0),
+                            decoration: BoxDecoration(
+                                color: chatDocs[index]['sender'] ==
+                                        futuresnapshot.data.uid
+                                    ? Colors.black
+                                    : Theme.of(context)
+                                        .accentTextTheme
+                                        .headline1
+                                        .color,
+                                borderRadius: BorderRadius.circular(8.0)),
+                            margin: EdgeInsets.only(
+                                right: chatDocs[index]['sender'] ==
+                                        futuresnapshot.data.uid
+                                    ? 10.0
+                                    : 0,
+                                left: chatDocs[index]['sender'] ==
+                                        futuresnapshot.data.uid
+                                    ? 0
+                                    : 10.0),
+                          )
+                        ],
+                        mainAxisAlignment:
+                            chatDocs[index]['sender'] == futuresnapshot.data.uid
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment
+                                    .start, // aligns the chatitem to right end
+                      ));
           },
         );
       },

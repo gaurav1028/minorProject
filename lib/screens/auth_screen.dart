@@ -24,6 +24,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String password,
     String address,
     bool isLogin,
+    File image,
     BuildContext ctx,
   ) async {
     final _auth = FirebaseAuth.instance;

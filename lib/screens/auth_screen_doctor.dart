@@ -25,6 +25,7 @@ class _AuthScreenState extends State<AuthDoctorScreen> {
     String address,
     String qualification,
     bool isLogin,
+    File image,
     BuildContext ctx,
   ) async {
     final _auth = FirebaseAuth.instance;
@@ -45,6 +46,15 @@ class _AuthScreenState extends State<AuthDoctorScreen> {
           password: password,
         );
 
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('user-profiles')
+            .child(authResult.user.uid + '.jpg');
+
+        await ref.putFile(image).onComplete;
+
+        final url = await ref.getDownloadURL();
+
         await Firestore.instance
             .collection('doctors')
             .document(authResult.user.uid)
@@ -54,6 +64,7 @@ class _AuthScreenState extends State<AuthDoctorScreen> {
             'username': username,
             'user_id': authResult.user.uid,
             'address': address,
+            'user_img': url,
             'qualification': qualification,
           },
         );

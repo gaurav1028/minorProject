@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
+import 'image_picker.dart';
 
 class AuthDoctorForm extends StatefulWidget {
   final void Function(
@@ -8,6 +12,7 @@ class AuthDoctorForm extends StatefulWidget {
     String address,
     String qualification,
     bool isLogin,
+    File image,
     BuildContext ctx,
   ) submitFn;
   final bool isLoading;
@@ -25,6 +30,12 @@ class _AuthDoctorFormState extends State<AuthDoctorForm> {
   var _email = '';
   var _address = '';
   var _qualification = '';
+  File _image;
+
+  void _pickImage(File image) {
+    _image = image;
+  }
+
   void _trySubmit() {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
@@ -38,6 +49,7 @@ class _AuthDoctorFormState extends State<AuthDoctorForm> {
         _address.trim(),
         _qualification.trim(),
         _isLogin,
+        _image,
         context,
       );
     }
@@ -58,6 +70,7 @@ class _AuthDoctorFormState extends State<AuthDoctorForm> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    if (!_isLogin) UserImagePicker(_pickImage),
                     TextFormField(
                       key: ValueKey('email'),
                       autocorrect: false,

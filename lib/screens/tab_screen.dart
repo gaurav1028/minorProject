@@ -4,6 +4,7 @@ import 'package:minorProject/provider/user.dart';
 import 'package:minorProject/screens/chat_screen.dart';
 import 'package:minorProject/screens/home_screen.dart';
 import 'package:minorProject/screens/portal_screen.dart';
+import 'package:minorProject/screens/profile_screen.dart';
 import 'package:minorProject/screens/request_list_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -36,16 +37,16 @@ class _TabScreenState extends State<TabScreen> {
         'title': 'Portal',
       },
       {
-        'page': HomeScreen(),
-        'title': 'Feed',
-      },
-      {
         'page': FriendRequestsScreen(),
         'title': 'DoctorList',
       },
       {
         'page': ChatScreen(),
         'title': 'Chat',
+      },
+      {
+        'page': Profile(),
+        'title': 'Feed',
       },
     ];
     _pages = [
@@ -54,16 +55,16 @@ class _TabScreenState extends State<TabScreen> {
         'title': 'Portal',
       },
       {
-        'page': HomeScreen(),
-        'title': 'Feed',
-      },
-      {
         'page': DoctorListScreen(),
         'title': 'RequestList',
       },
       {
         'page': ChatScreen(),
         'title': 'Chat',
+      },
+      {
+        'page': Profile(),
+        'title': 'Feed',
       },
     ];
 
@@ -102,7 +103,7 @@ class _TabScreenState extends State<TabScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.all_inbox,
+              Icons.person,
             ),
             title: Text(""),
           ),

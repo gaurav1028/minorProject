@@ -36,9 +36,26 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primaryColor: Colors.blue,
-          backgroundColor: Colors.purple,
-          accentColor: Colors.red,
+          primarySwatch: Colors.pink,
+          accentColor: Colors.amber,
+          canvasColor: Color.fromRGBO(255, 254, 220, 1),
+          fontFamily: 'Raleway',
+          tabBarTheme: TabBarTheme(
+            labelColor: Colors.pink[50],
+          ),
+          textTheme: ThemeData.light().textTheme.copyWith(
+                body1: TextStyle(
+                  color: Color.fromRGBO(20, 51, 51, 1),
+                ),
+                body2: TextStyle(
+                  color: Color.fromRGBO(20, 51, 51, 1),
+                ),
+                title: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'RobotoCondensed',
+                ),
+              ),
           buttonTheme: ButtonTheme.of(context).copyWith(
             buttonColor: Colors.red,
             textTheme: ButtonTextTheme.primary,
@@ -51,9 +68,6 @@ class MyApp extends StatelessWidget {
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
-          appBarTheme: AppBarTheme(
             color: Colors.black,
           ),
         ),

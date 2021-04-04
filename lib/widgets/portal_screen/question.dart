@@ -21,9 +21,24 @@ class Question extends StatelessWidget {
               SizedBox(
                 width: 5,
               ),
-              Text(
-                docs[index]['question'],
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      docs[index]['question'],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        'View Answers',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
