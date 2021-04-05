@@ -78,6 +78,7 @@ class _TabScreenState extends State<TabScreen> {
           ? _pages[_selectedPageIndex]['page']
           : _pages2[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.pink,
         onTap: _selectPage,
         fixedColor: Colors.black,
         type: BottomNavigationBarType.fixed,

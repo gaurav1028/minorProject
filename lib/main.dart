@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:minorProject/provider/user.dart';
 import 'package:minorProject/screens/chat_room_screen.dart';
 import 'package:minorProject/screens/selection_screen.dart';
+import 'package:minorProject/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'screens/splash_screen.dart';
 import 'screens/tab_screen.dart';
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
           AuthDoctorScreen.routeName: (context) => AuthDoctorScreen(),
           AuthCustomerScreen.routeName: (context) => AuthCustomerScreen(),
           ChatRoomScreen.routeName: (context) => ChatRoomScreen(),
+          SettingScreen.routeName: (context) => SettingScreen(),
         },
       ),
     );
