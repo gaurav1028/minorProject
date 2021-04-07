@@ -25,6 +25,7 @@ class RequestListItem extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.all(10),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
                 children: [

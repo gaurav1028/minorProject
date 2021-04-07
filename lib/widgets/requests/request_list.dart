@@ -15,6 +15,8 @@ class RequestList extends StatelessWidget {
     final ref =
         Firestore.instance.collection('doctors/$userId/requests').document(id);
 
+    final customer = await Firestore.instance.document('customers/$id').get();
+
     final ref2 = Firestore.instance
         .collection('customers/$id/request_sent')
         .document(userId);
@@ -33,6 +35,7 @@ class RequestList extends StatelessWidget {
       {
         'uid': userId,
         'username': userDoc['username'],
+        'user_img': userDoc['user_img']
       },
     );
     await Firestore.instance
@@ -42,6 +45,7 @@ class RequestList extends StatelessWidget {
       {
         'uid': id,
         'username': username,
+        'user_img': customer['user_img'],
       },
     );
 

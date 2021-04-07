@@ -75,6 +75,7 @@ class _AuthScreenState extends State<AuthDoctorScreen> {
             .setData(
           {
             'type': 'doctors',
+            'isFarmer': false,
           },
         );
       }

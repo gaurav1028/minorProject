@@ -7,11 +7,25 @@ class SelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Please Select'),
+      ),
       body: Padding(
-        padding: EdgeInsets.only(top: 400),
+        padding: EdgeInsets.only(top: 300),
         child: Center(
           child: Column(
             children: [
+              Text(
+                'You are a ..',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
               RaisedButton(
                 child: Text("Vet"),
                 onPressed: () {

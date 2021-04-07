@@ -73,6 +73,7 @@ class _AuthScreenState extends State<AuthCustomerScreen> {
             .setData(
           {
             'type': 'customers',
+            'isFarmer': false,
           },
         );
       }

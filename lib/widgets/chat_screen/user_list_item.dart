@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class UserListItem extends StatelessWidget {
   final String username;
   final String userid;
+  final String userImage;
   final Key key;
 
   UserListItem(
     this.username,
-    this.userid, {
+    this.userid,
+    this.userImage, {
     this.key,
   });
 
@@ -21,9 +23,11 @@ class UserListItem extends StatelessWidget {
         leading: Stack(
           children: <Widget>[
             CircleAvatar(
-              backgroundImage: AssetImage(
-                'assets/placeholder.png',
-              ),
+              backgroundImage: userImage == null
+                  ? AssetImage(
+                      'assets/placeholder.png',
+                    )
+                  : NetworkImage(userImage),
               radius: 25,
             ),
           ],

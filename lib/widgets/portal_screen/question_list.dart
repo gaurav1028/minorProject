@@ -15,10 +15,17 @@ class QuestionList extends StatelessWidget {
           );
         } else {
           final docs = snapshot.data.documents;
+          final type = Provider.of<UserType>(context).type;
+          print(docs.length);
           print(Provider.of<UserType>(context, listen: false).type);
           if (docs.length < 1) {
             return Center(
-              child: Text('No posts to show'),
+              child: Text(
+                'No posts to show',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
             );
           }
 
@@ -34,6 +41,7 @@ class QuestionList extends StatelessWidget {
                           Question(
                             docs,
                             index,
+                            type,
                           ),
                         ],
                       );

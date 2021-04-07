@@ -20,6 +20,7 @@ class _DoctorTileState extends State<DoctorTile> {
       ),
       child: Card(
         elevation: 5,
+        color: Colors.grey[350],
         child: Container(
           margin: EdgeInsets.all(10),
           child: Row(
@@ -30,12 +31,23 @@ class _DoctorTileState extends State<DoctorTile> {
                   SizedBox(
                     width: 5,
                   ),
+                  CircleAvatar(
+                    backgroundImage: widget.doctor['user_img'] == null
+                        ? AssetImage(
+                            "assets/placeholder.png",
+                          )
+                        : NetworkImage(
+                            widget.doctor['user_img'],
+                          ),
+                    radius: 20,
+                  ),
+                  SizedBox(width: 5),
                   Text(
                     widget.doctor['username'],
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    widget.doctor['qualification'],
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
                   ),
                 ],
               ),

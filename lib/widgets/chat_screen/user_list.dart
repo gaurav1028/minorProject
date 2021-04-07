@@ -48,6 +48,7 @@ class UserList extends StatelessWidget {
                     : UserListItem(
                         chatDocs[index]['username'],
                         chatDocs[index]['uid'],
+                        chatDocs[index]['user_img'],
                         key: ValueKey(
                           chatDocs[index].documentID,
                         ),

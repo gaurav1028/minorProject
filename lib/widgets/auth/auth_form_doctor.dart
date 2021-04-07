@@ -40,6 +40,18 @@ class _AuthDoctorFormState extends State<AuthDoctorForm> {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
 
+    if (_image == null && !_isLogin) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Please add a image',
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      return;
+    }
     if (isValid) {
       _formKey.currentState.save();
       widget.submitFn(
@@ -60,135 +72,138 @@ class _AuthDoctorFormState extends State<AuthDoctorForm> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Center(
-        child: Card(
-          margin: EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    if (!_isLogin) UserImagePicker(_pickImage),
-                    TextFormField(
-                      key: ValueKey('email'),
-                      autocorrect: false,
-                      textCapitalization: TextCapitalization.none,
-                      enableSuggestions: false,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Email adderess',
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty || !value.contains('@')) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
-                      onSaved: (newValue) {
-                        _email = newValue;
-                      },
-                    ),
-                    if (!_isLogin)
+        child: Container(
+          child: Card(
+            margin: EdgeInsets.all(20),
+            elevation: 10,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      if (!_isLogin) UserImagePicker(_pickImage),
                       TextFormField(
-                        key: ValueKey('username'),
-                        autocorrect: true,
-                        textCapitalization: TextCapitalization.sentences,
+                        key: ValueKey('email'),
+                        autocorrect: false,
+                        textCapitalization: TextCapitalization.none,
                         enableSuggestions: false,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          labelText: 'Username',
+                          labelText: 'Email adderess',
                         ),
                         validator: (value) {
-                          if (value.isEmpty || value.length < 4) {
-                            return 'Please enter a valid username';
+                          if (value.isEmpty || !value.contains('@')) {
+                            return 'Please enter a valid email';
                           }
                           return null;
                         },
                         onSaved: (newValue) {
-                          _username = newValue;
+                          _email = newValue;
                         },
                       ),
-                    TextFormField(
-                      key: ValueKey('password'),
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value.isEmpty || value.length < 8) {
-                          return 'Please enter a valid password';
-                        }
-                        return null;
-                      },
-                      onSaved: (newValue) {
-                        _password = newValue;
-                      },
-                    ),
-                    if (!_isLogin)
-                      TextFormField(
-                        key: ValueKey('qualification'),
-                        autocorrect: true,
-                        textCapitalization: TextCapitalization.sentences,
-                        enableSuggestions: false,
-                        decoration: InputDecoration(
-                          labelText: 'Qualification',
+                      if (!_isLogin)
+                        TextFormField(
+                          key: ValueKey('username'),
+                          autocorrect: true,
+                          textCapitalization: TextCapitalization.sentences,
+                          enableSuggestions: false,
+                          decoration: InputDecoration(
+                            labelText: 'Username',
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 4) {
+                              return 'Please enter a valid username';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) {
+                            _username = newValue;
+                          },
                         ),
+                      TextFormField(
+                        key: ValueKey('password'),
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                        ),
+                        obscureText: true,
                         validator: (value) {
-                          if (value.isEmpty || value.length < 4) {
-                            return 'Please enter a valid qualification';
+                          if (value.isEmpty || value.length < 8) {
+                            return 'Please enter a valid password';
                           }
                           return null;
                         },
                         onSaved: (newValue) {
-                          _qualification = newValue;
+                          _password = newValue;
                         },
                       ),
-                    if (!_isLogin)
-                      TextFormField(
-                        key: ValueKey('address'),
-                        autocorrect: true,
-                        textCapitalization: TextCapitalization.sentences,
-                        enableSuggestions: false,
-                        decoration: InputDecoration(
-                          labelText: 'Address',
+                      if (!_isLogin)
+                        TextFormField(
+                          key: ValueKey('qualification'),
+                          autocorrect: true,
+                          textCapitalization: TextCapitalization.sentences,
+                          enableSuggestions: false,
+                          decoration: InputDecoration(
+                            labelText: 'Qualification',
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 4) {
+                              return 'Please enter a valid qualification';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) {
+                            _qualification = newValue;
+                          },
                         ),
-                        validator: (value) {
-                          if (value.isEmpty || value.length < 4) {
-                            return 'Please enter a valid address';
-                          }
-                          return null;
-                        },
-                        onSaved: (newValue) {
-                          _address = newValue;
-                        },
-                      ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    if (widget.isLoading) CircularProgressIndicator(),
-                    if (!widget.isLoading)
-                      RaisedButton(
-                        onPressed: _trySubmit,
-                        child: Text(
-                          _isLogin ? 'Login' : 'Sign Up',
+                      if (!_isLogin)
+                        TextFormField(
+                          key: ValueKey('address'),
+                          autocorrect: true,
+                          textCapitalization: TextCapitalization.sentences,
+                          enableSuggestions: false,
+                          decoration: InputDecoration(
+                            labelText: 'Address',
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 4) {
+                              return 'Please enter a valid address';
+                            }
+                            return null;
+                          },
+                          onSaved: (newValue) {
+                            _address = newValue;
+                          },
                         ),
+                      SizedBox(
+                        height: 12,
                       ),
-                    if (!widget.isLoading)
-                      FlatButton(
-                        onPressed: () {
-                          setState(() {
-                            _isLogin = !_isLogin;
-                          });
-                        },
-                        child: Text(
-                          _isLogin
-                              ? 'Create new account'
-                              : 'I already have an account',
+                      if (widget.isLoading) CircularProgressIndicator(),
+                      if (!widget.isLoading)
+                        RaisedButton(
+                          onPressed: _trySubmit,
+                          child: Text(
+                            _isLogin ? 'Login' : 'Sign Up',
+                          ),
                         ),
-                        textColor: Theme.of(context).primaryColor,
-                      ),
-                  ],
+                      if (!widget.isLoading)
+                        FlatButton(
+                          onPressed: () {
+                            setState(() {
+                              _isLogin = !_isLogin;
+                            });
+                          },
+                          child: Text(
+                            _isLogin
+                                ? 'Create new account'
+                                : 'I already have an account',
+                          ),
+                          textColor: Theme.of(context).primaryColor,
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),

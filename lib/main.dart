@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:minorProject/provider/user.dart';
 import 'package:minorProject/screens/chat_room_screen.dart';
+import 'package:minorProject/screens/farmer_verification_screen.dart';
 import 'package:minorProject/screens/selection_screen.dart';
 import 'package:minorProject/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       value: UserType(),
       child: MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.pink,
           accentColor: Colors.amber,
@@ -58,7 +60,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
           buttonTheme: ButtonTheme.of(context).copyWith(
-            buttonColor: Colors.red,
+            buttonColor: Colors.pink[700],
             textTheme: ButtonTextTheme.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -98,6 +100,8 @@ class MyApp extends StatelessWidget {
           AuthCustomerScreen.routeName: (context) => AuthCustomerScreen(),
           ChatRoomScreen.routeName: (context) => ChatRoomScreen(),
           SettingScreen.routeName: (context) => SettingScreen(),
+          FarmerVerificationScreen.routeName: (context) =>
+              FarmerVerificationScreen(),
         },
       ),
     );
