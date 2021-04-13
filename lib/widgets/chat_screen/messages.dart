@@ -62,14 +62,17 @@ class Messages extends StatelessWidget {
                                         .color,
                                 borderRadius: BorderRadius.circular(8.0)),
                             margin: EdgeInsets.only(
-                                right: chatDocs[index]['sender'] ==
-                                        futuresnapshot.data.uid
-                                    ? 10.0
-                                    : 0,
-                                left: chatDocs[index]['sender'] ==
-                                        futuresnapshot.data.uid
-                                    ? 0
-                                    : 10.0),
+                              right: chatDocs[index]['sender'] ==
+                                      futuresnapshot.data.uid
+                                  ? 10.0
+                                  : 0,
+                              left: chatDocs[index]['sender'] ==
+                                      futuresnapshot.data.uid
+                                  ? 0
+                                  : 10.0,
+                              top: 6,
+                              bottom: 8,
+                            ),
                           )
                         ],
                         mainAxisAlignment:

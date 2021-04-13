@@ -8,8 +8,6 @@ class Question extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 5,
@@ -23,7 +21,7 @@ class Question extends StatelessWidget {
           child: Row(
             children: <Widget>[
               SizedBox(
-                width: 5,
+                width: 2,
               ),
               Column(
                 children: <Widget>[

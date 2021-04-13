@@ -8,6 +8,7 @@ class QuestionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      future: Firestore.instance.collection('faqs/').getDocuments(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -53,7 +54,6 @@ class QuestionList extends StatelessWidget {
           );
         }
       },
-      future: Firestore.instance.collection('faqs/').getDocuments(),
     );
   }
 }
