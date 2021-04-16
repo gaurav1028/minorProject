@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:minorProject/provider/user.dart';
+import 'package:minorProject/screens/answer_screen.dart';
 import 'package:minorProject/screens/chat_room_screen.dart';
 import 'package:minorProject/screens/farmer_verification_screen.dart';
 import 'package:minorProject/screens/selection_screen.dart';
@@ -102,6 +103,7 @@ class MyApp extends StatelessWidget {
           SettingScreen.routeName: (context) => SettingScreen(),
           FarmerVerificationScreen.routeName: (context) =>
               FarmerVerificationScreen(),
+          AnswerScreen.routeName: (context) => AnswerScreen(),
         },
       ),
     );

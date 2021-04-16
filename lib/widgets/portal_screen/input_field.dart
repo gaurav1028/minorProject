@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:minorProject/provider/user.dart';
+import 'package:provider/provider.dart';
 
 class InputField extends StatefulWidget {
   @override
@@ -14,8 +16,12 @@ class _InputFieldState extends State<InputField> {
     if (text == null || text.length == 0) {
       return;
     }
-    Firestore.instance.collection('faqs').add(
+    final time = DateTime.now().toIso8601String();
+    final uid = Provider.of<UserType>(context, listen: false).uid;
+    final id = time + uid;
+    Firestore.instance.collection('faqs').document(id).setData(
       {
+        'id': id,
         'question': text,
       },
     );
@@ -69,7 +75,7 @@ class _InputFieldState extends State<InputField> {
                 height: 20,
               ),
               RaisedButton(
-                child: Text('Add transaction'),
+                child: Text('Ask Question'),
                 textColor: Theme.of(context).textTheme.button.color,
                 color: Theme.of(context).primaryColor,
                 onPressed: () => submitData(context),

@@ -1,28 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import './question.dart';
-import 'package:provider/provider.dart';
-import '../../provider/user.dart';
+import 'package:minorProject/widgets/portal_screen/answer.dart';
 
-class QuestionList extends StatelessWidget {
+class AnswerList extends StatefulWidget {
+  final id;
+  AnswerList(this.id);
+
+  @override
+  _AnswerListState createState() => _AnswerListState();
+}
+
+class _AnswerListState extends State<AnswerList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Firestore.instance.collection('faqs').snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+      stream: Firestore.instance
+          .collection('faqs/${widget.id['id']}/answers')
+          .snapshots(),
+      builder: (context, ss) {
+        if (ss.connectionState == ConnectionState.waiting) {
           return Center(
             child: CircularProgressIndicator(),
           );
         } else {
-          final docs = snapshot.data.documents;
-          final type = Provider.of<UserType>(context).type;
+          final docs = ss.data.documents;
           print(docs.length);
-          print(Provider.of<UserType>(context, listen: false).type);
           if (docs.length < 1) {
             return Center(
               child: Text(
-                'No questions to show',
+                'No answers to show',
                 style: TextStyle(
                   color: Colors.red,
                 ),
@@ -39,11 +45,9 @@ class QuestionList extends StatelessWidget {
                     (int index) {
                       return Column(
                         children: <Widget>[
-                          Question(
+                          Answer(
                             docs,
                             index,
-                            docs[index],
-                            type,
                           ),
                         ],
                       );

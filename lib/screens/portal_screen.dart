@@ -34,13 +34,13 @@ class _PortalScreenState extends State<PortalScreen> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         actions: [
-          //if (userType == 'customers')
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              startAddNewTransaction(context);
-            },
-          )
+          if (userType != 'doctors')
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                startAddNewTransaction(context);
+              },
+            )
         ],
         title: Text('Portal'),
       ),
